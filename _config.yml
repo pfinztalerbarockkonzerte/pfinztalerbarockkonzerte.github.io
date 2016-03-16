@@ -1,0 +1,19 @@
+title: Pfinztaler Barockkonzerte
+markdown: kramdown
+baseurl: ''
+permalink: /blog/:year/:month/:day/:title
+place: 'Ev. Kirche Söllingen (Pfinztal)'
+events: 'Zelenka und Händel: 17., 23. und 24. April'
+street: 'Kirchhofstraße 28'
+zipTown: '76327 Pfinztal'
+latitude: 48.9855557
+longitude: 8.5401293
+prose:
+  rooturl: '_includes'
+  siteurl: 'http://pfinztalerbarockkonzerte.github.io/'
+  relativeLinks: 'http://pfinztalerbarockkonzerte.github.io/links.jsonp'
+  media: 'img'
+  ignore:
+    - index.md
+    - _config.yml
+    - /_layouts
