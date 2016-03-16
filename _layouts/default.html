@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>{{ site.title }}</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href='//fonts.googleapis.com/css?family=Asul' rel='stylesheet' type='text/css'>
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+  <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+  <script src="//cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+  <link rel="stylesheet" href="css/basic.css">
+  <link rel="stylesheet" href="css/reflex.css">
+  <link rel="stylesheet" href="css/barock.css">
+</head>
+<body>
+<!--
+Mehr auf http://leejordan.github.io/reflex/docs/demo.html
+-->
+<div id="header">
+	<div><a class="title" href="#start">{{ site.title }}</a></div>
+	<div>
+	<a href="#address">{{ site.place }}</a><br/>
+	<a href="#events">{{ site.events }}</a></div>
+</div>
+
+<section class="content-grid">
+	<section class="grid">
+		<ul class="grid">
+			<li class="grid__col-12" id="start">
+				<div class="grid__cell grid__cell--padding-md example-col-flat-1">
+    					{% capture about %}{% include about.md %}{% endcapture %}
+					{{ about | markdownify }}
+					<p class="showMobile top"><a href="#">nach oben</a></p>
+    				</div>
+			</li>
+			<li class="grid__col-12" id="events">
+				<div class="grid__cell grid__cell--padding-md example-col-flat-1">
+    					{% capture events %}{% include events.md %}{% endcapture %}
+					{{ events | markdownify }}
+					<p class="showMobile top"><a href="#">nach oben</a></p>
+    				</div>
+			</li>
+			
+			<li class="grid__col-12" id="address">
+				<div class="grid__cell grid__cell--padding-md example-col-flat-1">
+					<a href="http://maps.google.com/maps?daddr={{ site.latitude }},{{ site.longitude }}" target="_blank"><h2>{{ site.place }}</h2></a>
+					<div id="map"></div>
+					<p class="showMobile top"><a href="#">nach oben</a></p>
+			</li>
+			<li class="grid__col-12" id="kontakt">
+				<div class="grid__cell grid__cell--padding-md example-col-flat-1">
+					{% capture imprint %}{% include imprint.md %}{% endcapture %}
+					{{ imprint | markdownify }}
+					<p class="showMobile top"><a href="#">nach oben</a></p>
+				</div>
+			</li>
+		</ul>
+	</section>
+</section>
+
+<script>
+  var latitude = {{ site.latitude }};
+  var longitude = {{ site.longitude }};
+  var routeLink = "//maps.google.com/maps?daddr=" + latitude + "," + longitude;
+	var map = L.map('map').setView([latitude, longitude], 18);
+
+	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);
+
+	L.marker([latitude, longitude]).addTo(map)
+		.bindPopup('<a href="' + routeLink + '" target="_blank">{{site.street}}<br/>{{site.zipTown}}</a>')
+		.openPopup();
+</script>
+</body>
+</html>
